@@ -1,7 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Alert } from "react-native";
 import BackArrow from "../../components/common/BackArrow";
 import DefaultButton from "../../components/common/DefaultButton";
+import { PropsStack } from "../../routes";
 import {
   Bold,
   CompanyLogo,
@@ -17,12 +19,14 @@ const logo = require("../../../assets/images/logo.png");
 const companyLogo = require("../../../assets/images/logo-obc.png");
 
 const Login = () => {
+  const navigation = useNavigation<PropsStack>();
+
   const handleLogin = () => {
     Alert.alert("Botão de login clicado");
   };
 
   const handleNavRegister = () => {
-    Alert.alert("Botão de login clicado!");
+    navigation.navigate("Register");
   };
 
   return (
