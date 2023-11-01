@@ -1,24 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Alert, FlatList, ListRenderItem } from "react-native";
-import { PropsStack } from "../../../routes";
-import {
-  Container,
-  InfoLikeContainer,
-  LikeButton,
-  LikeImage,
-  ProductImage,
-  ProductInfoContainer,
-  ProductPrice,
-  ProductPriceInfoContainer,
-  ProductTitle,
-  PublishedText,
-  SellerInfoContainer,
-  SellerName,
-} from "./styled";
-
-const likeImage = require("../../../../assets/icons/like.png");
-const likedImage = require("../../../../assets/icons/liked.png");
+import { FlatList, ListRenderItem } from "react-native";
+import ProductCard from "./ProductCard";
 
 export interface ProductType {
   _id: string;
@@ -84,51 +66,8 @@ const Data = [
 ];
 
 const ProductList = () => {
-  const navigation = useNavigation<PropsStack>();
-
-  const handleNavProduct = () => {
-    navigation.navigate("Home");
-  };
-
-  const Item = ({ data }: { data: ProductType }) => (
-    <Container
-      activeOpacity={0.85}
-      onPress={() => {
-        Alert.alert("Navegação para o produto");
-      }}
-    >
-      <ProductImage source={{ uri: data.productImage }} />
-      <ProductInfoContainer>
-        <ProductPriceInfoContainer>
-          <ProductPrice>R$ {data.price}</ProductPrice>
-          <ProductTitle numberOfLines={2}>{data.name}</ProductTitle>
-        </ProductPriceInfoContainer>
-        <InfoLikeContainer>
-          <SellerInfoContainer>
-            <PublishedText>
-              Publicado em {data.publishedData} por:
-            </PublishedText>
-            <SellerName>{data.SellerName}</SellerName>
-          </SellerInfoContainer>
-          <LikeButton
-            onPress={() => {
-              Alert.alert("Você deu Like");
-            }}
-            activeOpacity={0.85}
-          >
-            {!data.liked ? (
-              <LikeImage source={likeImage} />
-            ) : (
-              <LikeImage source={likedImage} />
-            )}
-          </LikeButton>
-        </InfoLikeContainer>
-      </ProductInfoContainer>
-    </Container>
-  );
-
   const renderItem: ListRenderItem<ProductType> = ({ item }) => (
-    <Item data={item} />
+    <ProductCard data={item} />
   );
 
   return (
