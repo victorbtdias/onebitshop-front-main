@@ -16,3 +16,9 @@ export const Title = styled.Text`
   margin: 25px 0;
   text-align: center;
 `;
+
+export const AcceptTerms = styled.Text`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.secondaryText};
+  text-align: center;
+`;

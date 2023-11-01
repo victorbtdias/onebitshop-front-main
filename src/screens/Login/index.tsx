@@ -34,12 +34,12 @@ const Login = () => {
       <BackArrow marginLeft={30} />
       <Logo source={logo} />
       <InputContainer>
-        <Input placeholder="Email" placeholderTextColor="white" />
+        <Input placeholder="Email" placeholderTextColor="#C0C0C1" />
       </InputContainer>
       <InputContainer>
         <Input
           placeholder="Senha"
-          placeholderTextColor="white"
+          placeholderTextColor="#C0C0C1"
           secureTextEntry={true}
         />
       </InputContainer>
