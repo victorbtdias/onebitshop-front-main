@@ -1,5 +1,5 @@
 import { Alert } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   EditButton,
@@ -7,22 +7,25 @@ import {
   EditImage,
 } from "./styled";
 import FieldsDisabled from "./FieldsDisabled";
+import FieldsAbled from "./FieldsAbled";
 
 const edit = require("../../../../assets/icons/edit.png");
 
 const Form = () => {
+  const [editable, setEditable] = useState(false);
+
+  const handleToggleEditable = () => {
+    setEditable(!editable);
+  };
+
   return (
     <Container>
       <EditButtonContainer>
-        <EditButton
-          onPress={() => {
-            Alert.alert("Testando o botão!");
-          }}
-        >
+        <EditButton onPress={handleToggleEditable}>
           <EditImage source={edit} />
         </EditButton>
       </EditButtonContainer>
-      <FieldsDisabled />
+      {!editable ? <FieldsDisabled /> : <FieldsAbled />}
     </Container>
   );
 };
