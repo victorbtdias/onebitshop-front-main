@@ -2,8 +2,14 @@ import DefaultButton from "../../../common/DefaultButton";
 import { InputContainer } from "../styled";
 import { AddressText, Input } from "./styled";
 import { Alert } from "react-native";
+import DropDownComponent from "../../../common/DropDownComponent";
+import { useState } from "react";
 
 const FieldsAbled = () => {
+  const [select, setSelect] = useState("");
+
+  const Data = [{ value: "Endereço de teste", disabled: true }];
+
   return (
     <>
       <InputContainer>
@@ -15,9 +21,11 @@ const FieldsAbled = () => {
       <InputContainer>
         <Input value="lucasqueiroga@email.com" />
       </InputContainer>
-      <InputContainer>
-        <Input value="DROPDOWN" />
-      </InputContainer>
+      <DropDownComponent
+        placeholder="Seus endereços"
+        setSelected={setSelect}
+        data={Data}
+      />
       <InputContainer>
         <Input
           placeholder="Senha"

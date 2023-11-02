@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import DropDownComponent from "../../../common/DropDownComponent";
 import { InputDisabled, PlaceholderDisabled } from "./styled";
 
 const FieldsDisabled = () => {
+  const [select, setSelect] = useState("");
+
+  const Data = [{ value: "Endereço de teste", disabled: true }];
+
   return (
     <>
       <InputDisabled>
@@ -13,9 +18,11 @@ const FieldsDisabled = () => {
       <InputDisabled>
         <PlaceholderDisabled>(81) 9 9999-9999</PlaceholderDisabled>
       </InputDisabled>
-      <InputDisabled>
-        <PlaceholderDisabled>DROPDOWN</PlaceholderDisabled>
-      </InputDisabled>
+      <DropDownComponent
+        placeholder="Seus endereços"
+        setSelected={setSelect}
+        data={Data}
+      />
       <InputDisabled>
         <PlaceholderDisabled>Senha</PlaceholderDisabled>
       </InputDisabled>
