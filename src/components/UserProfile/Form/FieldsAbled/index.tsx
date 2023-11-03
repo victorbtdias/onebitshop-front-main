@@ -1,6 +1,6 @@
 import DefaultButton from "../../../common/DefaultButton";
 import { InputContainer } from "../styled";
-import { AddressText, Input } from "./styled";
+import { Input } from "./styled";
 import { Alert } from "react-native";
 import DropDownComponent from "../../../common/DropDownComponent";
 import { useState } from "react";
@@ -40,7 +40,6 @@ const FieldsAbled = () => {
           secureTextEntry
         />
       </InputContainer>
-      <AddressText>Gerenciar Endereços</AddressText>
       <DefaultButton
         buttonText="Salvar Alterações"
         buttonHandle={() => {

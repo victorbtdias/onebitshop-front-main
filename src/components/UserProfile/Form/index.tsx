@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import React, { useState } from "react";
 import {
   Container,

@@ -1,11 +1,19 @@
 import React from "react";
-import { Container, DeleteAccount, LogOutButton, LogOutText } from "./styled";
+import {
+  AddressText,
+  Container,
+  DeleteAccount,
+  LogOutButton,
+  LogOutText,
+} from "./styled";
 import NavBar from "../../components/common/NavBar";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import ProfileInfo from "../../components/common/ProfileInfo";
 import Form from "../../components/UserProfile/Form";
 import UserAds from "../../components/UserProfile/UserAds";
 import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../routes";
 
 const Data = [
   {
@@ -35,6 +43,8 @@ const Data = [
 ];
 
 const UserProfile = () => {
+  const navigation = useNavigation<PropsStack>();
+
   return (
     <>
       <Container
@@ -45,6 +55,13 @@ const UserProfile = () => {
         <DefaultTitle title="MEU PERFIL" fontSize={20} />
         <ProfileInfo />
         <Form />
+        <AddressText
+          onPress={() => {
+            navigation.navigate("AllAddress");
+          }}
+        >
+          Gerenciar Endereços
+        </AddressText>
         <UserAds products={Data} seller={true} />
         <LogOutButton
           onPress={() => {
