@@ -1,8 +1,10 @@
 import React from "react";
+import DefaultButton from "../../components/common/DefaultButton";
 import DefaultTitle from "../../components/common/DefaultTitle";
+import NavBar from "../../components/common/NavBar";
 import ProfileInfo from "../../components/common/ProfileInfo";
 import UserAds from "../../components/UserProfile/UserAds";
-import { AdsContainer, Container } from "./styled";
+import { AdsContainer, Container, DenounceText } from "./styled";
 
 const Data = [
   {
@@ -33,17 +35,23 @@ const Data = [
 
 const SellerProfile = () => {
   return (
-    <Container
-      contentContainerStyle={{
-        paddingBottom: 120,
-      }}
-    >
-      <DefaultTitle title="PERFIL DO VENDEDOR" fontSize={20} />
-      <ProfileInfo />
-      <AdsContainer>
-        <UserAds products={Data} seller={true} />
-      </AdsContainer>
-    </Container>
+    <>
+      <Container contentContainerStyle={{ paddingBottom: 125 }}>
+        <DefaultTitle title="PERFIL DO VENDEDOR" fontSize={20} />
+        <ProfileInfo />
+        <AdsContainer>
+          <UserAds products={Data} seller={true} />
+        </AdsContainer>
+        <DefaultButton
+          buttonText="FALAR COM O VENDEDOR"
+          buttonHandle={() => {}}
+          buttonType="primary"
+          marginVertical={20}
+        />
+        <DenounceText>Achou algo estranho? Denuncie!</DenounceText>
+      </Container>
+      <NavBar />
+    </>
   );
 };
 
