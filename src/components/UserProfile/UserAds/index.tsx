@@ -2,21 +2,22 @@ import React from "react";
 import {
   AdCard,
   Container,
+  Icon,
+  IconButton,
   Image,
   InfoContainer,
-  InfoTrashContainer,
+  InfoIconContainer,
   NoAds,
   Price,
   PriceTitleContainer,
   PublishedText,
   Title,
   TotalAds,
-  TrashButton,
-  TrashIcon,
 } from "./styled";
 import { Alert } from "react-native";
 
 const trashIcon = require("../../../../assets/icons/trash.png");
+const heartIcon = require("../../../../assets/icons/like.png");
 
 interface Product {
   id: string;
@@ -28,9 +29,10 @@ interface Product {
 
 interface ProductProps {
   products: Product[];
+  seller: boolean;
 }
 
-const UserAds = ({ products }: ProductProps) => {
+const UserAds = ({ products, seller }: ProductProps) => {
   return (
     <Container>
       <TotalAds>Você tem 3 anúncios</TotalAds>
@@ -53,19 +55,30 @@ const UserAds = ({ products }: ProductProps) => {
                 <Price>R$ {product.price}</Price>
                 <Title numberOfLines={2}>{product.title}</Title>
               </PriceTitleContainer>
-              <InfoTrashContainer>
+              <InfoIconContainer>
                 <PublishedText>
                   Publicado em {product.publishedData}
                 </PublishedText>
-                <TrashButton
-                  onPress={() => {
-                    Alert.alert("Item para ser excluído");
-                  }}
-                  activeOpacity={0.85}
-                >
-                  <TrashIcon source={trashIcon} />
-                </TrashButton>
-              </InfoTrashContainer>
+                {!seller ? (
+                  <IconButton
+                    onPress={() => {
+                      Alert.alert("Item para ser excluído");
+                    }}
+                    activeOpacity={0.85}
+                  >
+                    <Icon source={trashIcon} />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onPress={() => {
+                      Alert.alert("Item para ser excluído");
+                    }}
+                    activeOpacity={0.85}
+                  >
+                    <Icon source={heartIcon} />
+                  </IconButton>
+                )}
+              </InfoIconContainer>
             </InfoContainer>
           </AdCard>
         ))

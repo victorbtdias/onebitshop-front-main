@@ -45,7 +45,7 @@ const UserProfile = () => {
         <DefaultTitle title="MEU PERFIL" fontSize={20} />
         <ProfileInfo />
         <Form />
-        <UserAds products={Data} />
+        <UserAds products={Data} seller={true} />
         <LogOutButton
           onPress={() => {
             Alert.alert("Você deslogou!");
