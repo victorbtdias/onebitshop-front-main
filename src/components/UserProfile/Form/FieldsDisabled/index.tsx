@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import DropDownComponent from "../../../common/DropDownComponent";
-import { InputDisabled, PlaceholderDisabled } from "./styled";
+import {
+  ArrowIconDisabled,
+  DropDownContainerDisabled,
+  DropDownDisabled,
+  InputDisabled,
+  PlaceholderDisabled,
+} from "./styled";
+
+const arrowIcon = require("../../../../../assets/icons/arrow-down.png");
 
 const FieldsDisabled = () => {
-  const [select, setSelect] = useState("");
-
-  const Data = [{ value: "Endereço de teste", disabled: true }];
-
   return (
     <>
       <InputDisabled>
@@ -18,11 +21,14 @@ const FieldsDisabled = () => {
       <InputDisabled>
         <PlaceholderDisabled>(81) 9 9999-9999</PlaceholderDisabled>
       </InputDisabled>
-      <DropDownComponent
-        placeholder="Seus endereços"
-        setSelected={setSelect}
-        data={Data}
-      />
+      <DropDownContainerDisabled pointerEvents="none">
+        <DropDownDisabled
+          setSelected={() => {}}
+          data={[]}
+          placeholder="Seus Endereços"
+          arrowicon={<ArrowIconDisabled source={arrowIcon} />}
+        />
+      </DropDownContainerDisabled>
       <InputDisabled>
         <PlaceholderDisabled>Senha</PlaceholderDisabled>
       </InputDisabled>
