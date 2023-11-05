@@ -24,3 +24,18 @@ export const Title = styled.Text`
   color: white;
   font-weight: bold;
 `;
+
+export const ImageContainer = styled.View`
+  width: 88%;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+export const Image = styled.Image`
+  width: 60px;
+  height: 50px;
+  margin: 10px 0;
+  margin-right: 10px;
+  border-radius: 5px;
+`;

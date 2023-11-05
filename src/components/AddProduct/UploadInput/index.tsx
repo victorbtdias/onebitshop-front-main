@@ -1,5 +1,5 @@
 import React, { SetStateAction } from "react";
-import { Container, Icon, Title } from "./styled";
+import { Container, Icon, Image, ImageContainer, Title } from "./styled";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
 
@@ -21,7 +21,15 @@ const UploadInput = ({ images, setImages }: ImagesParams) => {
     });
 
     if (result.assets) {
-      setImages(result.assets);
+      const images = result.assets.slice(0, 6);
+
+      if (result.assets.length > 6) {
+        Alert.alert(
+          "Você excedeu o limite máximo de imagens permitido (6). Por isso, removemos as imagens adicionais que você enviou."
+        );
+      }
+
+      setImages(images);
     } else {
       Alert.alert("Você não selecionou nenhuma imagem");
     }
@@ -33,6 +41,12 @@ const UploadInput = ({ images, setImages }: ImagesParams) => {
         <Title>Adicione até 6 fotos</Title>
         <Icon source={uploadImage} />
       </Container>
+      <ImageContainer>
+        {images &&
+          images.map((image) => {
+            return <Image key={image.assetId} source={{ uri: image.uri }} />;
+          })}
+      </ImageContainer>
     </>
   );
 };
