@@ -1,4 +1,3 @@
-import { Text } from "react-native";
 import React, { useState } from "react";
 import {
   Container,
@@ -10,6 +9,8 @@ import {
 import DefaultTitle from "../../components/common/DefaultTitle";
 import DropDownComponent from "../../components/common/DropDownComponent";
 import DefaultButton from "../../components/common/DefaultButton";
+import UploadInput from "../../components/AddProduct/UploadInput";
+import { ImagePickerAsset } from "expo-image-picker/build/ImagePicker.types";
 
 const Address = [
   { value: "Endereço 1" },
@@ -28,6 +29,7 @@ const Categorie = [
 const AddProduct = () => {
   const [categorie, setCategorie] = useState("");
   const [address, setAddress] = useState("");
+  const [images, setImages] = useState<ImagePickerAsset[]>([]);
 
   return (
     <Container>
@@ -41,9 +43,7 @@ const AddProduct = () => {
       <DescriptionContainer>
         <Input placeholder="Descrição" />
       </DescriptionContainer>
-      <InputContainer>
-        <Input placeholder="IMAGEM (SIMBÓLICO)" />
-      </InputContainer>
+      <UploadInput images={images} setImages={setImages} />
       <DropDownComponent
         data={Categorie}
         placeholder="Selecione a categoria"
