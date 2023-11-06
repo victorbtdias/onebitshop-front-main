@@ -28,16 +28,11 @@ const ProductCard = ({ data }: DataProps) => {
   const navigation = useNavigation<PropsStack>();
 
   const handleNavProduct = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Product");
   };
 
   return (
-    <Container
-      activeOpacity={0.85}
-      onPress={() => {
-        Alert.alert("Navegação para o produto");
-      }}
-    >
+    <Container activeOpacity={0.85} onPress={handleNavProduct}>
       <ProductImage source={{ uri: data.productImage }} />
       <ProductInfoContainer>
         <ProductPriceInfoContainer>
