@@ -17,6 +17,9 @@ import DescriptionComponent from "../../components/Product/Description";
 import SellerInfo from "../../components/Product/SellerInfo";
 import DefaultButton from "../../components/common/DefaultButton";
 import { DenounceText } from "../SellerProfile/styled";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../routes";
+import NavBar from "../../components/common/NavBar";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -37,41 +40,50 @@ const images = [
 ];
 
 const Product = () => {
+  const navigation = useNavigation<PropsStack>();
+
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam ducimus consequatur, quos reiciendis distinctio molestias consequuntur laudantium nostrum, nesciunt quis velit provident modi temporibus voluptatibus natus porro quisquam quae. Ad laboriosam ducimus iste cumque corporis et quibusdam hic. Commodi quasi, in totam iure repellat voluptatibus labore nostrum omnis itaque minus?";
 
   return (
-    <Container contentContainerStyle={{ paddingBottom: 20 }}>
-      <BackArrow marginLeft={30} />
-      <Title>Playstation 5 com dois controles</Title>
-      <SubTitleContainer>
-        <SubTitle>Publicado em 10/05/23</SubTitle>
-        <SubTitle>Recife, PE</SubTitle>
-      </SubTitleContainer>
-      <Carousel images={images} />
-      <InfoContainer>
-        <Price>R$ 1800</Price>
-        <InteractionsContainer>
-          <Button activeOpacity={0.8}>
-            <Like source={like} />
-          </Button>
-          <Button activeOpacity={0.8}>
-            <Share source={share} />
-          </Button>
-        </InteractionsContainer>
-      </InfoContainer>
-      <DescriptionComponent desc={description} />
-      <SellerInfo />
-      <DefaultButton
-        buttonText="Fale com o vendedor"
-        buttonType="primary"
-        buttonHandle={() => {}}
-        marginVertical={0}
-      />
-      <DenounceText onPress={() => {}}>
-        Achou algo estranho? Denuncie!
-      </DenounceText>
-    </Container>
+    <>
+      <Container contentContainerStyle={{ paddingBottom: 20 }}>
+        <BackArrow marginLeft={30} />
+        <Title>Playstation 5 com dois controles</Title>
+        <SubTitleContainer>
+          <SubTitle>Publicado em 10/05/23</SubTitle>
+          <SubTitle>Recife, PE</SubTitle>
+        </SubTitleContainer>
+        <Carousel images={images} />
+        <InfoContainer>
+          <Price>R$ 1800</Price>
+          <InteractionsContainer>
+            <Button activeOpacity={0.8}>
+              <Like source={like} />
+            </Button>
+            <Button activeOpacity={0.8}>
+              <Share source={share} />
+            </Button>
+          </InteractionsContainer>
+        </InfoContainer>
+        <DescriptionComponent desc={description} />
+        <SellerInfo />
+        <DefaultButton
+          buttonText="Fale com o vendedor"
+          buttonType="primary"
+          buttonHandle={() => {}}
+          marginVertical={0}
+        />
+        <DenounceText
+          onPress={() => {
+            navigation.navigate("Denounce");
+          }}
+        >
+          Achou algo estranho? Denuncie!
+        </DenounceText>
+      </Container>
+      <NavBar />
+    </>
   );
 };
 
