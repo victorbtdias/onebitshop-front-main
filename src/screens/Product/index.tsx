@@ -1,7 +1,21 @@
 import React from "react";
-import { Container, SubTitle, SubTitleContainer, Title } from "./styled";
+import {
+  Button,
+  Container,
+  InfoContainer,
+  InteractionsContainer,
+  Like,
+  Price,
+  Share,
+  SubTitle,
+  SubTitleContainer,
+  Title,
+} from "./styled";
 import BackArrow from "../../components/common/BackArrow";
 import Carousel from "../../components/Product/Carousel";
+
+const like = require("../../../assets/icons/like.png");
+const share = require("../../../assets/icons/share.png");
 
 const images = [
   {
@@ -28,6 +42,17 @@ const Product = () => {
         <SubTitle>Recife, PE</SubTitle>
       </SubTitleContainer>
       <Carousel images={images} />
+      <InfoContainer>
+        <Price>R$ 1800</Price>
+        <InteractionsContainer>
+          <Button activeOpacity={0.8}>
+            <Like source={like} />
+          </Button>
+          <Button activeOpacity={0.8}>
+            <Share source={share} />
+          </Button>
+        </InteractionsContainer>
+      </InfoContainer>
     </Container>
   );
 };
