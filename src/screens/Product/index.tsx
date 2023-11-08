@@ -13,6 +13,7 @@ import {
 } from "./styled";
 import BackArrow from "../../components/common/BackArrow";
 import Carousel from "../../components/Product/Carousel";
+import DescriptionComponent from "../../components/Product/Description";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -33,6 +34,9 @@ const images = [
 ];
 
 const Product = () => {
+  const description =
+    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam ducimus consequatur, quos reiciendis distinctio molestias consequuntur laudantium nostrum, nesciunt quis velit provident modi temporibus voluptatibus natus porro quisquam quae. Ad laboriosam ducimus iste cumque corporis et quibusdam hic. Commodi quasi, in totam iure repellat voluptatibus labore nostrum omnis itaque minus?";
+
   return (
     <Container>
       <BackArrow marginLeft={30} />
@@ -53,6 +57,7 @@ const Product = () => {
           </Button>
         </InteractionsContainer>
       </InfoContainer>
+      <DescriptionComponent desc={description} />
     </Container>
   );
 };
