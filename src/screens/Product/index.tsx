@@ -14,6 +14,7 @@ import {
 import BackArrow from "../../components/common/BackArrow";
 import Carousel from "../../components/Product/Carousel";
 import DescriptionComponent from "../../components/Product/Description";
+import SellerInfo from "../../components/Product/SellerInfo";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -58,6 +59,7 @@ const Product = () => {
         </InteractionsContainer>
       </InfoContainer>
       <DescriptionComponent desc={description} />
+      <SellerInfo />
     </Container>
   );
 };
