@@ -15,6 +15,8 @@ import BackArrow from "../../components/common/BackArrow";
 import Carousel from "../../components/Product/Carousel";
 import DescriptionComponent from "../../components/Product/Description";
 import SellerInfo from "../../components/Product/SellerInfo";
+import DefaultButton from "../../components/common/DefaultButton";
+import { DenounceText } from "../SellerProfile/styled";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -39,7 +41,7 @@ const Product = () => {
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam ducimus consequatur, quos reiciendis distinctio molestias consequuntur laudantium nostrum, nesciunt quis velit provident modi temporibus voluptatibus natus porro quisquam quae. Ad laboriosam ducimus iste cumque corporis et quibusdam hic. Commodi quasi, in totam iure repellat voluptatibus labore nostrum omnis itaque minus?";
 
   return (
-    <Container>
+    <Container contentContainerStyle={{ paddingBottom: 20 }}>
       <BackArrow marginLeft={30} />
       <Title>Playstation 5 com dois controles</Title>
       <SubTitleContainer>
@@ -60,6 +62,15 @@ const Product = () => {
       </InfoContainer>
       <DescriptionComponent desc={description} />
       <SellerInfo />
+      <DefaultButton
+        buttonText="Fale com o vendedor"
+        buttonType="primary"
+        buttonHandle={() => {}}
+        marginVertical={0}
+      />
+      <DenounceText onPress={() => {}}>
+        Achou algo estranho? Denuncie!
+      </DenounceText>
     </Container>
   );
 };

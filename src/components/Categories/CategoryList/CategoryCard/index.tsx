@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../../../routes";
 import { Product } from "../../../../screens/Categories";
 import {
   Container,
@@ -17,8 +19,14 @@ interface ProductProps {
 const likeImage = require("../../../../../assets/icons/like.png");
 
 const CategoryCard = ({ product }: ProductProps) => {
+  const navigation = useNavigation<PropsStack>();
+
+  const handleProduct = () => {
+    navigation.navigate("Product");
+  };
+
   return (
-    <Container>
+    <Container onPress={handleProduct}>
       <Image source={{ uri: product.productImage }} />
       <TextContainer>
         <Title>{product.title}</Title>

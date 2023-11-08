@@ -59,3 +59,10 @@ export const Share = styled.Image.attrs({
 })`
   width: 24px;
 `;
+
+export const DenounceTxt = styled.Text`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.secondaryText};
+  text-align: center;
+  margin-top: 25px;
+`;
