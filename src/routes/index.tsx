@@ -17,6 +17,7 @@ import ProductScreen from "../screens/Product";
 import Denounce from "../screens/Denounce";
 import Feedback from "../screens/Feedback";
 import AllChats from "../screens/AllChats";
+import Chat from "../screens/Chat";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -39,6 +40,9 @@ export type PropsNavigationStack = {
   Denounce: undefined;
   Feedback: undefined;
   AllChats: undefined;
+  Chat: {
+    chatInfo: any;
+  };
 };
 
 const Stack = createNativeStackNavigator<PropsNavigationStack>();
@@ -68,6 +72,7 @@ const Routes = () => {
         <Stack.Screen name="Denounce" component={Denounce} />
         <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="AllChats" component={AllChats} />
+        <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   );
