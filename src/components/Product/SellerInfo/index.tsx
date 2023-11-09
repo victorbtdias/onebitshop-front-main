@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { AirbnbRating } from "react-native-ratings";
 import { PropsStack } from "../../../routes";
+import { DefaultText } from "../../common/ProfileInfo/styled";
 import { Button, Container, Name, SeeProfile, SellerContainer } from "./styled";
 
 const SellerInfo = () => {
@@ -12,18 +13,32 @@ const SellerInfo = () => {
     <Container>
       <SellerContainer>
         <Name>Lucas Queiroga</Name>
-        <Button>
-          <AirbnbRating
-            selectedColor="#5F96ED"
-            showRating={false}
-            isDisabled={true}
-            size={16}
-            defaultRating={Rate}
-            starContainerStyle={{
-              marginLeft: -20,
+        {!Rate ? (
+          <DefaultText
+            onPress={() => {
+              navigation.navigate("Feedback");
             }}
-          />
-        </Button>
+          >
+            Sem Avaliações. Avalie aqui!
+          </DefaultText>
+        ) : (
+          <Button
+            onPress={() => {
+              navigation.navigate("Feedback");
+            }}
+          >
+            <AirbnbRating
+              selectedColor="#5F96ED"
+              showRating={false}
+              isDisabled={true}
+              size={16}
+              defaultRating={Rate}
+              starContainerStyle={{
+                paddingTop: 4,
+              }}
+            />
+          </Button>
+        )}
       </SellerContainer>
       <SeeProfile
         onPress={() => {
