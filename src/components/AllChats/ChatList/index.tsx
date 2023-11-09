@@ -1,5 +1,6 @@
 import { NoChat } from "./styled";
 import { FlatList, ListRenderItem, View } from "react-native";
+import ChatCard from "./ChatCard";
 const Chats = [
   {
     _id: "1",
@@ -201,9 +202,7 @@ const Chats = [
 
 const ChatList = () => {
   const renderItem: ListRenderItem<any> = ({ item }) => (
-    <>
-      <View></View>
-    </>
+    <ChatCard data={item} />
   );
 
   return (
