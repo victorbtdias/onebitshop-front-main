@@ -4,11 +4,11 @@ import {
   Container,
   Image,
   InfoContainer,
-  LikeContainer,
   Price,
   PublishedText,
   SellerContainer,
   SellerName,
+  SellerTrashContainer,
   Title,
   TrashButton,
   TrashImage,
@@ -25,7 +25,7 @@ const ChatCard = ({ data }: any) => {
       <InfoContainer>
         <Price>R$ {data.product.price}</Price>
         <Title numberOfLines={2}>{data.product.name}</Title>
-        <LikeContainer>
+        <SellerTrashContainer>
           <SellerContainer>
             <PublishedText>
               Publicado em {data.product.createdAt} por:
@@ -35,7 +35,7 @@ const ChatCard = ({ data }: any) => {
           <TrashButton onPress={() => {}} activeOpacity={0.85}>
             <TrashImage source={trashIcon} />
           </TrashButton>
-        </LikeContainer>
+        </SellerTrashContainer>
       </InfoContainer>
     </Container>
   );

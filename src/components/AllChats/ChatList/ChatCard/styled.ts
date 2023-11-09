@@ -34,7 +34,7 @@ export const Title = styled.Text`
   font-weight: bold;
 `;
 
-export const LikeContainer = styled.View`
+export const SellerTrashContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 22px;
