@@ -3,14 +3,7 @@ import { Container } from "./styled";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import NavBar from "../../components/common/NavBar";
 import CategoryList from "../../components/Categories/CategoryList";
-
-export interface Product {
-  id: string;
-  productImage: string;
-  price: string;
-  title: string;
-  publishedData: string;
-}
+import { Product } from "../../entities/Product";
 
 export interface Category {
   category: {
@@ -120,6 +113,7 @@ const Categories = () => {
     <>
       <Container contentContainerStyle={{ paddingBottom: 100 }}>
         <DefaultTitle title="TODAS AS CATEGORIAS" fontSize={20} />
+        {/* @ts-ignore */}
         {Data.map(({ category }: Category) => (
           <CategoryList key={category._id} category={category} />
         ))}

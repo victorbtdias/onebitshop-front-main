@@ -1,4 +1,3 @@
-import { Product } from "../../../../screens/Categories";
 import {
   Button,
   Container,
@@ -13,6 +12,7 @@ import {
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../../routes";
+import { Product } from "../../../../entities/Product";
 
 interface ProductProps {
   product: Product;
@@ -29,10 +29,10 @@ const CategoryCard = ({ product }: ProductProps) => {
 
   return (
     <Container activeOpacity={0.85} onPress={handleProduct}>
-      <Image source={{ uri: product.productImage }} />
+      <Image source={{ uri: product.images[0].url }} />
       <InfoContainer>
         <Price>R$ {product.price}</Price>
-        <Title numberOfLines={2}>{product.title}</Title>
+        <Title numberOfLines={2}>{product.name}</Title>
         <LikeContainer>
           <PublishedText>
             Publicado em{"\n"}

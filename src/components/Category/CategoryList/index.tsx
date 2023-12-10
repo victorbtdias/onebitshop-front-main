@@ -1,5 +1,5 @@
-import { View, FlatList, ListRenderItem } from "react-native";
-import { Product } from "../../../screens/Categories";
+import { FlatList, ListRenderItem } from "react-native";
+import { Product } from "../../../entities/Product";
 import CategoryCard from "./CategoryCard";
 
 interface Props {

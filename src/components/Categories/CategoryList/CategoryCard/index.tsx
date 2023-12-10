@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
+import { Product } from "../../../../entities/Product";
 import { PropsStack } from "../../../../routes";
-import { Product } from "../../../../screens/Categories";
 import {
   Container,
   Image,
@@ -27,9 +27,9 @@ const CategoryCard = ({ product }: ProductProps) => {
 
   return (
     <Container onPress={handleProduct}>
-      <Image source={{ uri: product.productImage }} />
+      <Image source={{ uri: product.images[0].url }} />
       <TextContainer>
-        <Title>{product.title}</Title>
+        <Title>{product.name}</Title>
         <Price>R$ {product.price}</Price>
         <SellerLikeContainer>
           <SellerName>Lucas Queiroga</SellerName>
