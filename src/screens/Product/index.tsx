@@ -20,6 +20,7 @@ import { DenounceText } from "../SellerProfile/styled";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
 import NavBar from "../../components/common/NavBar";
+import useAuth from "../../hook/useAuth";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
@@ -41,6 +42,7 @@ const images = [
 
 const Product = () => {
   const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
 
   const description =
     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam ducimus consequatur, quos reiciendis distinctio molestias consequuntur laudantium nostrum, nesciunt quis velit provident modi temporibus voluptatibus natus porro quisquam quae. Ad laboriosam ducimus iste cumque corporis et quibusdam hic. Commodi quasi, in totam iure repellat voluptatibus labore nostrum omnis itaque minus?";
@@ -76,7 +78,9 @@ const Product = () => {
         />
         <DenounceText
           onPress={() => {
-            navigation.navigate("Denounce");
+            !token
+              ? navigation.navigate("Login")
+              : navigation.navigate("Denounce");
           }}
         >
           Achou algo estranho? Denuncie!

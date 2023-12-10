@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { AirbnbRating } from "react-native-ratings";
+import useAuth from "../../../hook/useAuth";
 import { PropsStack } from "../../../routes";
 import {
   Button,
@@ -15,6 +16,7 @@ import {
 
 const ProfileInfo = () => {
   const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
 
   const Rate = 4;
 
@@ -29,7 +31,9 @@ const ProfileInfo = () => {
           {!Rate ? (
             <DefaultText
               onPress={() => {
-                navigation.navigate("Feedback");
+                !token
+                  ? navigation.navigate("Login")
+                  : navigation.navigate("Feedback");
               }}
             >
               Sem Avaliações. Avalie aqui!
@@ -37,7 +41,9 @@ const ProfileInfo = () => {
           ) : (
             <Button
               onPress={() => {
-                navigation.navigate("Feedback");
+                !token
+                  ? navigation.navigate("Login")
+                  : navigation.navigate("Feedback");
               }}
             >
               <AirbnbRating

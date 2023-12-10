@@ -1,11 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import { AirbnbRating } from "react-native-ratings";
+import useAuth from "../../../hook/useAuth";
 import { PropsStack } from "../../../routes";
 import { DefaultText } from "../../common/ProfileInfo/styled";
 import { Button, Container, Name, SeeProfile, SellerContainer } from "./styled";
 
 const SellerInfo = () => {
   const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
 
   const Rate = 3;
 
@@ -16,7 +18,9 @@ const SellerInfo = () => {
         {!Rate ? (
           <DefaultText
             onPress={() => {
-              navigation.navigate("Feedback");
+              !token
+                ? navigation.navigate("Login")
+                : navigation.navigate("Feedback");
             }}
           >
             Sem Avaliações. Avalie aqui!
@@ -24,7 +28,9 @@ const SellerInfo = () => {
         ) : (
           <Button
             onPress={() => {
-              navigation.navigate("Feedback");
+              !token
+                ? navigation.navigate("Login")
+                : navigation.navigate("Feedback");
             }}
           >
             <AirbnbRating

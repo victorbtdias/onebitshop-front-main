@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import DefaultButton from "../../components/common/DefaultButton";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import NavBar from "../../components/common/NavBar";
 import ProfileInfo from "../../components/common/ProfileInfo";
 import UserAds from "../../components/UserProfile/UserAds";
+import useAuth from "../../hook/useAuth";
+import { PropsStack } from "../../routes";
 import { AdsContainer, Container, DenounceText } from "./styled";
 
 const Data = [
@@ -34,6 +37,9 @@ const Data = [
 ];
 
 const SellerProfile = () => {
+  const navigation = useNavigation<PropsStack>();
+  const { token } = useAuth();
+
   return (
     <>
       <Container contentContainerStyle={{ paddingBottom: 125 }}>
@@ -48,7 +54,15 @@ const SellerProfile = () => {
           buttonType="primary"
           marginVertical={20}
         />
-        <DenounceText>Achou algo estranho? Denuncie!</DenounceText>
+        <DenounceText
+          onPress={() => {
+            !token
+              ? navigation.navigate("Login")
+              : navigation.navigate("Denounce");
+          }}
+        >
+          Achou algo estranho? Denuncie!
+        </DenounceText>
       </Container>
       <NavBar />
     </>
