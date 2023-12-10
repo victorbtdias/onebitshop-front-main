@@ -33,7 +33,7 @@ const ProductCard = ({ data }: DataProps) => {
 
   return (
     <Container activeOpacity={0.85} onPress={handleNavProduct}>
-      <ProductImage source={{ uri: data.images[0].url }} />
+      {/* <ProductImage source={{ uri: data.images[0].url }} /> */}
       <ProductInfoContainer>
         <ProductPriceInfoContainer>
           <ProductPrice>R$ {data.price}</ProductPrice>
@@ -44,7 +44,7 @@ const ProductCard = ({ data }: DataProps) => {
             <PublishedText>
               Publicado em {data.publishedData} por:
             </PublishedText>
-            <SellerName>{data.seller.name}</SellerName>
+            {/* <SellerName>{data.seller.name}</SellerName> */}
           </SellerInfoContainer>
           <LikeButton
             onPress={() => {

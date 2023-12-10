@@ -1,16 +1,47 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { Input, InputContainer, InputMask } from "./styled";
 
-const Form = () => {
-  const [phone, setPhone] = useState("");
+interface Fields {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  confirmPassword: string;
+}
 
+interface Props {
+  fields: Fields;
+  setFields: React.Dispatch<SetStateAction<Fields>>;
+}
+
+const Form = ({ fields, setFields }: Props) => {
   return (
     <>
       <InputContainer>
-        <Input placeholder="Nome e sobrenome" placeholderTextColor="#C0C0C1" />
+        <Input
+          placeholder="Nome e sobrenome"
+          placeholderTextColor="#C0C0C1"
+          value={fields.name}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              name: val,
+            });
+          }}
+        />
       </InputContainer>
       <InputContainer>
-        <Input placeholder="Email" placeholderTextColor="#C0C0C1" />
+        <Input
+          placeholder="Email"
+          placeholderTextColor="#C0C0C1"
+          value={fields.email}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              email: val,
+            });
+          }}
+        />
       </InputContainer>
       <InputContainer>
         <InputMask
@@ -22,9 +53,12 @@ const Form = () => {
           }}
           placeholder="(XX) XXXXX-XXXX"
           placeholderTextColor="#C0C0C1"
-          value={phone}
-          onChangeText={(value) => {
-            setPhone(value);
+          value={fields.phone}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              phone: val,
+            });
           }}
         />
       </InputContainer>
@@ -33,6 +67,13 @@ const Form = () => {
           placeholder="Senha"
           placeholderTextColor="#C0C0C1"
           secureTextEntry={true}
+          value={fields.password}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              password: val,
+            });
+          }}
         />
       </InputContainer>
       <InputContainer>
@@ -40,6 +81,13 @@ const Form = () => {
           placeholder="Confirmar Senha"
           placeholderTextColor="#C0C0C1"
           secureTextEntry={true}
+          value={fields.confirmPassword}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              confirmPassword: val,
+            });
+          }}
         />
       </InputContainer>
     </>
