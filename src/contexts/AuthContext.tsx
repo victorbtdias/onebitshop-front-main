@@ -53,6 +53,8 @@ interface AuthContextData extends AuthState {
     password: string,
     phone: string
   ) => Promise<void>;
+  logout: () => void;
+  login: (email: string, password: string) => Promise<void>;
 }
 
 export const AuthContext = React.createContext<AuthContextData>(
@@ -96,8 +98,26 @@ export function AuthContextProvider({
 
   const methods = React.useMemo(
     () => ({
-      logout: async () => {},
-      login: async (email: string, password: string) => {},
+      logout: async () => {
+        dispatch({ type: "SIGN_OUT", token: null, user: null });
+        await SecureStore.deleteItemAsync("onebitshop-token");
+        await AsyncStorage.removeItem("user");
+      },
+      login: async (email: string, password: string) => {
+        const params = { email, password };
+
+        const { status, data } = await authService.login(params);
+
+        if (status === 400 || status === 401) {
+          return;
+        }
+
+        dispatch({
+          type: "SIGN_IN",
+          token: data.token,
+          user: data.user._id,
+        });
+      },
       register: async (
         name: string,
         email: string,
@@ -105,6 +125,8 @@ export function AuthContextProvider({
         phone: string
       ) => {
         const params = { name, email, password, phone };
+
+        const loginParams = { email, password };
 
         const data = await authService.register(params);
 
@@ -119,6 +141,8 @@ export function AuthContextProvider({
           token: data?.data.token,
           user: data?.data.user._id,
         });
+
+        await authService.login(loginParams);
       },
     }),
     []
