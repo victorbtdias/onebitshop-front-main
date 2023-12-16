@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Alert } from "react-native";
+import React, { useState } from "react";
 import BackArrow from "../../components/common/BackArrow";
 import DefaultButton from "../../components/common/DefaultButton";
+import useAuth from "../../hook/useAuth";
 import { PropsStack } from "../../routes";
 import {
   Bold,
@@ -20,13 +20,15 @@ const companyLogo = require("../../../assets/images/logo-obc.png");
 
 const Login = () => {
   const navigation = useNavigation<PropsStack>();
+  const [fields, setFields] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    Alert.alert("Botão de login clicado");
-  };
-
-  const handleNavRegister = () => {
-    navigation.navigate("Register");
+    login(fields.email, fields.password);
   };
 
   return (
@@ -34,13 +36,30 @@ const Login = () => {
       <BackArrow marginLeft={30} />
       <Logo source={logo} />
       <InputContainer>
-        <Input placeholder="Email" placeholderTextColor="#C0C0C1" />
+        <Input
+          placeholder="Email"
+          placeholderTextColor="#C0C0C1"
+          value={fields.email}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              email: val,
+            });
+          }}
+        />
       </InputContainer>
       <InputContainer>
         <Input
           placeholder="Senha"
           placeholderTextColor="#C0C0C1"
           secureTextEntry={true}
+          value={fields.password}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              password: val,
+            });
+          }}
         />
       </InputContainer>
       <FogetPassword>Esqueceu sua senha?</FogetPassword>
@@ -54,7 +73,7 @@ const Login = () => {
       />
       <RegisterText
         onPress={() => {
-          handleNavRegister();
+          navigation.navigate("Register");
         }}
       >
         Não tem uma conta ainda? <Bold>Crie agora!</Bold>
