@@ -28,12 +28,19 @@ export interface DataProps {
 const ProductCard = ({ data }: DataProps) => {
   const navigation = useNavigation<PropsStack>();
 
-  const handleNavProduct = () => {
-    navigation.navigate("Product");
+  const handleNavProduct = (data: Product) => {
+    navigation.navigate("Product", {
+      ...data,
+    });
   };
 
   return (
-    <Container activeOpacity={0.85} onPress={handleNavProduct}>
+    <Container
+      activeOpacity={0.85}
+      onPress={() => {
+        handleNavProduct(data);
+      }}
+    >
       <ProductImage source={{ uri: data.images[0].url }} />
       <ProductInfoContainer>
         <ProductPriceInfoContainer>
