@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   DescriptionContainer,
@@ -20,36 +20,89 @@ const Address = [
   { value: "Endereço 4" },
 ];
 
-const Categorie = [
-  { value: "Categoria 1" },
-  { value: "Categoria 2" },
-  { value: "Categoria 3" },
-  { value: "Categoria 4" },
+const Category = [
+  { value: "Eletrônicos" },
+  { value: "Eletrodomésticos" },
+  { value: "Moda e Acessórios" },
+  { value: "Pets" },
+  { value: "Brinquedos e Jogos" },
+  { value: "Casa e Jardim" },
+  { value: "Esporte e Lazer" },
+  { value: "Automóveis e Veículos" },
 ];
 
 const AddProduct = () => {
-  const [categorie, setCategorie] = useState("");
+  const [fields, setFields] = useState({
+    title: "",
+    price: "",
+    description: "",
+    images: [{}],
+    category: "",
+    addressId: "",
+  });
+  const [category, setCategory] = useState("");
   const [address, setAddress] = useState("");
   const [images, setImages] = useState<ImagePickerAsset[]>([]);
+
+  const handleSubmitProduct = () => {
+    console.log(fields);
+  };
+
+  useEffect(() => {
+    setFields({
+      ...fields,
+      images: images,
+      category: category,
+      addressId: address,
+    });
+  }, [images, category, address]);
 
   return (
     <>
       <Container>
         <DefaultTitle title="CADASTRO DO ANÚNCIO" fontSize={18} />
         <InputContainer>
-          <Input placeholder="Título" />
+          <Input
+            placeholder="Título"
+            value={fields.title}
+            onChangeText={(val) => {
+              setFields({
+                ...fields,
+                title: val,
+              });
+            }}
+          />
         </InputContainer>
         <InputContainer>
-          <Input placeholder="Preço" keyboardType="numeric" />
+          <Input
+            placeholder="Preço"
+            value={fields.price}
+            onChangeText={(val) => {
+              setFields({
+                ...fields,
+                price: val,
+              });
+            }}
+            keyboardType="numeric"
+          />
         </InputContainer>
         <DescriptionContainer>
-          <Input placeholder="Descrição" />
+          <Input
+            placeholder="Descrição"
+            value={fields.description}
+            onChangeText={(val) => {
+              setFields({
+                ...fields,
+                description: val,
+              });
+            }}
+          />
         </DescriptionContainer>
         <UploadInput images={images} setImages={setImages} />
         <DropDownComponent
-          data={Categorie}
+          data={Category}
           placeholder="Selecione a categoria"
-          setSelected={setCategorie}
+          setSelected={setCategory}
         />
         <DropDownComponent
           data={Address}
@@ -58,14 +111,14 @@ const AddProduct = () => {
         />
         <DefaultButton
           buttonText="CADASTRAR E PUBLICAR"
-          buttonHandle={() => {}}
+          buttonHandle={handleSubmitProduct}
           buttonType="primary"
           marginVertical={20}
         />
         <Division>ou</Division>
         <DefaultButton
           buttonText="SALVAR COMO RASCUNHO"
-          buttonHandle={() => {}}
+          buttonHandle={handleSubmitProduct}
           buttonType="secondary"
           marginVertical={20}
         />
