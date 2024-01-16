@@ -25,7 +25,7 @@ const AllAddress = ({ route }: Props) => {
   const { newAddress } = route.params;
 
   const renderItem: ListRenderItem<Address> = ({ item }) => (
-    <AddressCard item={item} />
+    <AddressCard item={item} address={allAddress} setAddress={setAllAddress} />
   );
 
   const handleNavAddAddress = () => {
