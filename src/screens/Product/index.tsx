@@ -22,46 +22,30 @@ import { PropsNavigationStack, PropsStack } from "../../routes";
 import NavBar from "../../components/common/NavBar";
 import useAuth from "../../hook/useAuth";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import getDate from "../../utils/getDate";
 
 const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
-
-const images = [
-  {
-    filename: "image1",
-    url: "https://classic.exame.com/wp-content/uploads/2021/05/ps5-the-squad-foto-1.jpg?quality=70&strip=info&w=984",
-  },
-  {
-    filename: "image2",
-    url: "https://cdn.awsli.com.br/1824/1824967/produto/186131938/67bd1ea8d4.jpg",
-  },
-  {
-    filename: "image3",
-    url: "https://cdn.awsli.com.br/600x700/1734/1734513/produto/97494476/030cda119d.jpg",
-  },
-];
 
 type Props = NativeStackScreenProps<PropsNavigationStack, "Product">;
 
 const Product = ({ route }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
-
-  const description =
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam ducimus consequatur, quos reiciendis distinctio molestias consequuntur laudantium nostrum, nesciunt quis velit provident modi temporibus voluptatibus natus porro quisquam quae. Ad laboriosam ducimus iste cumque corporis et quibusdam hic. Commodi quasi, in totam iure repellat voluptatibus labore nostrum omnis itaque minus?";
+  const { params } = route;
 
   return (
     <>
       <Container contentContainerStyle={{ paddingBottom: 20 }}>
         <BackArrow marginLeft={30} />
-        <Title>Playstation 5 com dois controles</Title>
+        <Title>{params.name}</Title>
         <SubTitleContainer>
-          <SubTitle>Publicado em 10/05/23</SubTitle>
-          <SubTitle>Recife, PE</SubTitle>
+          <SubTitle>Publicado em {getDate(params.createdAt)}</SubTitle>
+          {/* <SubTitle>Recife, PE</SubTitle> */}
         </SubTitleContainer>
-        <Carousel images={images} />
+        <Carousel images={params.images} />
         <InfoContainer>
-          <Price>R$ 1800</Price>
+          <Price>R$ {params.price}</Price>
           <InteractionsContainer>
             <Button activeOpacity={0.8}>
               <Like source={like} />
@@ -71,8 +55,8 @@ const Product = ({ route }: Props) => {
             </Button>
           </InteractionsContainer>
         </InfoContainer>
-        <DescriptionComponent desc={description} />
-        <SellerInfo />
+        <DescriptionComponent desc={params.description} />
+        <SellerInfo name={params.seller.name} />
         <DefaultButton
           buttonText="Fale com o vendedor"
           buttonType="primary"

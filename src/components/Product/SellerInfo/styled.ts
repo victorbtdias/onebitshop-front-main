@@ -6,7 +6,9 @@ export const Container = styled.View`
   margin: 30px;
 `;
 
-export const SellerContainer = styled.View``;
+export const SellerContainer = styled.View`
+  max-width: 250px;
+`;
 
 export const Name = styled.Text`
   font-size: 18px;

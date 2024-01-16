@@ -5,16 +5,20 @@ import { PropsStack } from "../../../routes";
 import { DefaultText } from "../../common/ProfileInfo/styled";
 import { Button, Container, Name, SeeProfile, SellerContainer } from "./styled";
 
-const SellerInfo = () => {
+interface Props {
+  name: string;
+}
+
+const SellerInfo = ({ name }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
 
-  const Rate = 3;
+  const Rate = null;
 
   return (
     <Container>
       <SellerContainer>
-        <Name>Lucas Queiroga</Name>
+        <Name>{name}</Name>
         {!Rate ? (
           <DefaultText
             onPress={() => {
@@ -39,9 +43,6 @@ const SellerInfo = () => {
               isDisabled={true}
               size={16}
               defaultRating={Rate}
-              starContainerStyle={{
-                paddingTop: 4,
-              }}
             />
           </Button>
         )}
