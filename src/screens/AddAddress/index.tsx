@@ -3,8 +3,14 @@ import { Container, Input, InputContainer, InputMask } from "./styled";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import DefaultButton from "../../components/common/DefaultButton";
 import axios from "axios";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { PropsStack } from "../../routes";
+import addressService from "../../services/addressService";
 
 const AddAddress = () => {
+  const navigation = useNavigation<PropsStack>();
+
   const [fields, setFields] = useState({
     cep: "",
     street: "",
@@ -27,6 +33,27 @@ const AddAddress = () => {
       city: data.localidade,
       district: data.bairro,
     });
+  };
+
+  const handleAddAddress = async () => {
+    if (fields.cep.length < 8) {
+      Alert.alert("Você precisa preencher o CEP");
+      return;
+    } else if (
+      Object.entries(fields)
+        .filter(([key, value]) => key !== "complement")
+        .some(([key, value]) => value === "")
+    ) {
+      Alert.alert("Campo obrigatório vazio");
+      return;
+    }
+
+    const params = fields;
+    const data = await addressService.addAddress(params);
+
+    if (data.status === 201) {
+      navigation.navigate("AllAddress");
+    }
   };
 
   return (
@@ -110,7 +137,7 @@ const AddAddress = () => {
       </InputContainer>
       <DefaultButton
         buttonText="Cadastrar Endereço"
-        buttonHandle={() => {}}
+        buttonHandle={handleAddAddress}
         buttonType="primary"
         marginVertical={30}
       />

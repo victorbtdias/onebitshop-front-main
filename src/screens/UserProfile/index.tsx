@@ -62,7 +62,7 @@ const UserProfile = () => {
         >
           Gerenciar Endereços
         </AddressText>
-        <UserAds products={Data} seller={true} />
+        {/* <UserAds products={Data} seller={true} /> */}
         <LogOutButton
           onPress={() => {
             Alert.alert("Você deslogou!");
