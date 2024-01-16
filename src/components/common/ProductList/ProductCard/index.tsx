@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 import { Product } from "../../../../entities/Product";
 import { PropsStack } from "../../../../routes";
+import getDate from "../../../../utils/getDate";
 import {
   Container,
   InfoLikeContainer,
@@ -33,7 +34,7 @@ const ProductCard = ({ data }: DataProps) => {
 
   return (
     <Container activeOpacity={0.85} onPress={handleNavProduct}>
-      {/* <ProductImage source={{ uri: data.images[0].url }} /> */}
+      <ProductImage source={{ uri: data.images[0].url }} />
       <ProductInfoContainer>
         <ProductPriceInfoContainer>
           <ProductPrice>R$ {data.price}</ProductPrice>
@@ -42,9 +43,9 @@ const ProductCard = ({ data }: DataProps) => {
         <InfoLikeContainer>
           <SellerInfoContainer>
             <PublishedText>
-              Publicado em {data.publishedData} por:
+              Publicado em {getDate(data.createdAt)} por:
             </PublishedText>
-            {/* <SellerName>{data.seller.name}</SellerName> */}
+            <SellerName>{data.seller.name}</SellerName>
           </SellerInfoContainer>
           <LikeButton
             onPress={() => {
