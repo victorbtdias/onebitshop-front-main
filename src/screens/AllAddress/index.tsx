@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   CreateAddBtn,
@@ -9,47 +9,20 @@ import {
 import NavBar from "../../components/common/NavBar";
 import DefaultTitle from "../../components/common/DefaultTitle";
 import { FlatList, ListRenderItem } from "react-native";
-import DefaultButton from "../../components/common/DefaultButton";
 import AddressCard from "./AddressCard";
 import { useNavigation } from "@react-navigation/native";
-import { PropsStack } from "../../routes";
+import { PropsNavigationStack, PropsStack } from "../../routes";
 import { Address } from "../../entities/User";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import addressService from "../../services/addressService";
 
-const Data = [
-  {
-    _id: "1",
-    street: "Rua das Acácias",
-    number: "321",
-    complement: "",
-    district: "Boa Viagem",
-    city: "Recife",
-    state: "PE",
-    cep: "51030200",
-  },
-  {
-    _id: "2",
-    street: "Avenida das Flores",
-    number: "456",
-    complement: "",
-    district: "Centro",
-    city: "Cuiabá",
-    state: "MT",
-    cep: "78005100",
-  },
-  {
-    _id: "3",
-    street: "Rua das Jabuticabeiras",
-    number: "987",
-    complement: "",
-    district: "Mangabeiras",
-    city: "Maceió",
-    state: "AL",
-    cep: "57037100",
-  },
-];
+type Props = NativeStackScreenProps<PropsNavigationStack, "AllAddress">;
 
-const AllAddress = () => {
+const AllAddress = ({ route }: Props) => {
   const navigation = useNavigation<PropsStack>();
+  const [allAddress, setAllAddress] = useState<Address[]>([]);
+
+  const { newAddress } = route.params;
 
   const renderItem: ListRenderItem<Address> = ({ item }) => (
     <AddressCard item={item} />
@@ -59,11 +32,21 @@ const AllAddress = () => {
     navigation.navigate("AddAddress");
   };
 
+  const handleGetAddress = async () => {
+    const res = await addressService.getAddress();
+
+    setAllAddress(res.data);
+  };
+
+  useEffect(() => {
+    handleGetAddress();
+  }, [newAddress]);
+
   return (
     <>
       <Container>
         <DefaultTitle fontSize={18} title="TODOS OS ENDEREÇOS" />
-        {Data.length <= 0 ? (
+        {allAddress.length <= 0 ? (
           <>
             <NoAdd>Você não tem endereços{"\n"}cadastrados no momento</NoAdd>
             <CreateAddBtn onPress={handleNavAddAddress}>
@@ -74,7 +57,7 @@ const AllAddress = () => {
           <>
             <ListHeight>
               <FlatList
-                data={Data}
+                data={allAddress}
                 keyExtractor={(item: Address) => item._id}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
