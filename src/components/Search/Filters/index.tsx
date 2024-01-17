@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal } from "react-native";
+import { QueryContext } from "../../../contexts/QueryContext";
 import ComplementFilters from "./ComplementFilters";
 import {
   Bold,
@@ -19,19 +20,23 @@ const Filters = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [filterText, setFilterText] = useState("Mais recente");
   const [showFilters, setShowFilters] = useState(false);
+  const queryContext = useContext(QueryContext);
 
   const handleBigestPrice = async () => {
     setFilterText("Maior preço");
+    queryContext.addFilter("orderBy=price&direction=desc");
     setModalVisible(false);
   };
 
   const handleLowestPrice = async () => {
     setFilterText("Menor preço");
+    queryContext.addFilter("orderBy=price&direction=asc");
     setModalVisible(false);
   };
 
   const handleNewest = async () => {
     setFilterText("Mais recente");
+    queryContext.addFilter("orderBy=updatedAt");
     setModalVisible(false);
   };
 
