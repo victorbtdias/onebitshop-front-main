@@ -43,9 +43,14 @@ const Search = ({ route }: Props) => {
     setFilters(newFilters);
   };
 
+  const resetFilter = () => {
+    setFilters([query]);
+  };
+
   const queryContextValue = {
     filters,
     addFilter,
+    resetFilter,
   };
 
   useEffect(() => {

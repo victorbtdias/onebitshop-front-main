@@ -72,6 +72,11 @@ const ComplementFilters = ({ setShowFilters }: Props) => {
     setShowFilters(false);
   };
 
+  const handleCleanFilters = () => {
+    queryContext.resetFilter();
+    setShowFilters(false);
+  };
+
   return (
     <Container>
       <Title>VALOR</Title>
@@ -127,7 +132,7 @@ const ComplementFilters = ({ setShowFilters }: Props) => {
         saveMethod="value"
       />
       <ButtonsContainer>
-        <CleanButton onPress={() => {}}>
+        <CleanButton onPress={handleCleanFilters}>
           <ButtonText>LIMPAR</ButtonText>
         </CleanButton>
         <ApllyButton onPress={handleSearchFiltered}>
