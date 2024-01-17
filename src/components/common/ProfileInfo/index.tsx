@@ -1,8 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { AirbnbRating } from "react-native-ratings";
+import { User } from "../../../entities/User";
 import useAuth from "../../../hook/useAuth";
 import { PropsStack } from "../../../routes";
+import getDate from "../../../utils/getDate";
 import {
   Button,
   Container,
@@ -14,19 +16,23 @@ import {
   PrincipalInfoContainer,
 } from "./styled";
 
-const ProfileInfo = () => {
+interface Props {
+  userInfo: User;
+}
+
+const ProfileInfo = ({ userInfo }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
 
-  const Rate = 4;
+  const Rate = userInfo.averageRating;
 
   return (
     <>
       <Container>
         <PrincipalInfoContainer>
           <NamePhoneContainer>
-            <Name>Lucas Queiroga</Name>
-            <Phone>(81) 99999-9999</Phone>
+            <Name>{userInfo.name}</Name>
+            <Phone>{userInfo.phone}</Phone>
           </NamePhoneContainer>
           {!Rate ? (
             <DefaultText
@@ -59,8 +65,10 @@ const ProfileInfo = () => {
             </Button>
           )}
         </PrincipalInfoContainer>
-        <DefaultText>Usuário desde 20/04/23</DefaultText>
-        <DefaultText>04 anúncios ativos</DefaultText>
+        <DefaultText>Usuário desde {getDate(userInfo.createdAt)}</DefaultText>
+        <DefaultText>
+          {userInfo.products.length.toString().padStart(2, "0")} anúncios ativos
+        </DefaultText>
       </Container>
       <Hr />
     </>

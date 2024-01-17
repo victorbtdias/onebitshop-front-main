@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddressText,
   Container,
@@ -14,36 +14,29 @@ import UserAds from "../../components/UserProfile/UserAds";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../routes";
-
-const Data = [
-  {
-    id: "1",
-    productImage:
-      "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
-    price: "2600",
-    title: "Playstation 4 novo com 3 jogos acompanhando",
-    publishedData: "14/02/23",
-  },
-  {
-    id: "2",
-    productImage:
-      "https://m.media-amazon.com/images/I/61hJ40qZKKL._AC_SX679_.jpg",
-    price: "2600",
-    title: "Playstation 5 novo com 1 jogo acompanhando",
-    publishedData: "14/02/23",
-  },
-  {
-    id: "3",
-    productImage:
-      "https://http2.mlstatic.com/D_NQ_NP_715237-MLA45308505060_032021-O.jpg",
-    price: "2600",
-    title: "Playstation 4 novo com 2 jogos acompanhando",
-    publishedData: "14/02/23",
-  },
-];
+import useAuth from "../../hook/useAuth";
+import profileService from "../../services/profileService";
+import { User } from "../../entities/User";
 
 const UserProfile = () => {
   const navigation = useNavigation<PropsStack>();
+  const [userInfo, setUserInfo] = useState<User>();
+  const [loading, setLoading] = useState(true);
+
+  const { logout } = useAuth();
+
+  const handleUserInfos = async () => {
+    const { data } = await profileService.getUserProfile();
+
+    setUserInfo(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    handleUserInfos();
+  }, []);
+
+  if (!userInfo) return;
 
   return (
     <>
@@ -53,8 +46,8 @@ const UserProfile = () => {
         }}
       >
         <DefaultTitle title="MEU PERFIL" fontSize={20} />
-        <ProfileInfo />
-        <Form />
+        <ProfileInfo userInfo={userInfo} />
+        <Form userInfo={userInfo} />
         <AddressText
           onPress={() => {
             navigation.navigate("AllAddress", { newAddress: false });
@@ -62,12 +55,8 @@ const UserProfile = () => {
         >
           Gerenciar Endereços
         </AddressText>
-        {/* <UserAds products={Data} seller={true} /> */}
-        <LogOutButton
-          onPress={() => {
-            Alert.alert("Você deslogou!");
-          }}
-        >
+        <UserAds products={userInfo} seller={true} />
+        <LogOutButton onPress={logout}>
           <LogOutText>Sair da sua conta</LogOutText>
         </LogOutButton>
         <DeleteAccount
