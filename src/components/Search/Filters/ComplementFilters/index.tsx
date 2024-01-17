@@ -36,6 +36,7 @@ const ComplementFilters = ({ setShowFilters }: Props) => {
   const [fields, setFields] = useState({
     minPrice: "",
     maxPrice: "",
+    address: "",
   });
 
   const handleMinPrice = () => {
@@ -46,12 +47,26 @@ const ComplementFilters = ({ setShowFilters }: Props) => {
     queryContext.addFilter(`maxPrice=${fields.maxPrice}`);
   };
 
+  const handleCategory = () => {
+    queryContext.addFilter(`category=${category}`);
+  };
+
+  const handleAddress = () => {
+    queryContext.addFilter(`location=${fields.address}`);
+  };
+
   const handleSearchFiltered = () => {
     if (fields.minPrice) {
       handleMinPrice();
     }
     if (fields.maxPrice) {
       handleMaxPrice();
+    }
+    if (category) {
+      handleCategory();
+    }
+    if (fields.address) {
+      handleAddress();
     }
 
     setShowFilters(false);
@@ -93,8 +108,15 @@ const ComplementFilters = ({ setShowFilters }: Props) => {
       <Title>LOCALIZAÇÃO</Title>
       <LocationInputContainer>
         <Input
-          placeholder="Bairro, Cidade e/ou Estado"
+          placeholder="Bairro, Cidade e/ou Estado (Apenas um por vez)"
           placeholderTextColor="white"
+          value={fields.address}
+          onChangeText={(val) => {
+            setFields({
+              ...fields,
+              address: val,
+            });
+          }}
         />
       </LocationInputContainer>
       <Title>CATEGORIA</Title>
