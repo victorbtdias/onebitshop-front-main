@@ -41,7 +41,9 @@ const Product = ({ route }: Props) => {
         <Title>{params.name}</Title>
         <SubTitleContainer>
           <SubTitle>Publicado em {getDate(params.createdAt)}</SubTitle>
-          {/* <SubTitle>Recife, PE</SubTitle> */}
+          <SubTitle>
+            {params.address.city}, {params.address.state}
+          </SubTitle>
         </SubTitleContainer>
         <Carousel images={params.images} />
         <InfoContainer>

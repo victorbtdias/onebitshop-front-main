@@ -25,6 +25,7 @@ const FieldsAbled = () => {
         placeholder="Seus endereços"
         setSelected={setSelect}
         data={Data}
+        saveMethod="value"
       />
       <InputContainer>
         <Input

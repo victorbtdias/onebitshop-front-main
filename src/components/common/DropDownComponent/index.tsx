@@ -7,12 +7,14 @@ interface DropDownProps {
   data: Object[];
   placeholder: string;
   setSelected: React.Dispatch<SetStateAction<string>>;
+  saveMethod: string;
 }
 
 const DropDownComponent = ({
   data,
   placeholder,
   setSelected,
+  saveMethod,
 }: DropDownProps) => {
   const noAddress = [{ value: "Sem endereço no momento!", disabled: true }];
   const checkedData = data.length <= 0 ? noAddress : data;
@@ -23,7 +25,7 @@ const DropDownComponent = ({
         setSelected={setSelected}
         data={checkedData}
         placeholder={placeholder}
-        save="value"
+        save={saveMethod === "value" ? "value" : "key"}
         search={false}
         arrowicon={<ArrowIcon source={arrowIcon} />}
       />

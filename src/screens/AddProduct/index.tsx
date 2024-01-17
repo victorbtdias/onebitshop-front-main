@@ -49,6 +49,8 @@ const AddProduct = () => {
   const handleGetAddress = async () => {
     const res = await addressService.getAddress();
 
+    if (res.status === 401) return;
+
     const value = res.data.map((address: Address) => {
       return {
         key: address._id,
@@ -148,11 +150,13 @@ const AddProduct = () => {
           data={Category}
           placeholder="Selecione a categoria"
           setSelected={setCategory}
+          saveMethod="value"
         />
         <DropDownComponent
           data={address}
           placeholder="Selecione o endereço"
           setSelected={setAddressId}
+          saveMethod="key"
         />
         <DefaultButton
           buttonText="CADASTRAR E PUBLICAR"
