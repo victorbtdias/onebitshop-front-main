@@ -22,7 +22,7 @@ const CategoryCard = ({ product }: ProductProps) => {
   const navigation = useNavigation<PropsStack>();
 
   const handleProduct = () => {
-    navigation.navigate("Product");
+    navigation.navigate("Product", { ...product });
   };
 
   return (

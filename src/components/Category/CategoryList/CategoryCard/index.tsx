@@ -13,6 +13,7 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../../routes";
 import { Product } from "../../../../entities/Product";
+import getDate from "../../../../utils/getDate";
 
 interface ProductProps {
   product: Product;
@@ -24,7 +25,7 @@ const CategoryCard = ({ product }: ProductProps) => {
   const navigation = useNavigation<PropsStack>();
 
   const handleProduct = () => {
-    navigation.navigate("Product");
+    navigation.navigate("Product", { ...product });
   };
 
   return (
@@ -36,7 +37,7 @@ const CategoryCard = ({ product }: ProductProps) => {
         <LikeContainer>
           <PublishedText>
             Publicado em{"\n"}
-            {product.publishedData}
+            {getDate(product.createdAt)}
           </PublishedText>
           <Button
             onPress={() => {
