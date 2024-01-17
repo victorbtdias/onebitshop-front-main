@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, SetStateAction } from "react";
+import { QueryContext } from "../../../../contexts/QueryContext";
 import DropDownComponent from "../../../common/DropDownComponent";
 
 import {
@@ -25,8 +26,36 @@ const Category = [
   { value: "Automóveis e Veículos" },
 ];
 
-const ComplementFilters = () => {
+interface Props {
+  setShowFilters: React.Dispatch<SetStateAction<boolean>>;
+}
+
+const ComplementFilters = ({ setShowFilters }: Props) => {
   const [category, setCategory] = useState("");
+  const queryContext = useContext(QueryContext);
+  const [fields, setFields] = useState({
+    minPrice: "",
+    maxPrice: "",
+  });
+
+  const handleMinPrice = () => {
+    queryContext.addFilter(`minPrice=${fields.minPrice}`);
+  };
+
+  const handleMaxPrice = () => {
+    queryContext.addFilter(`maxPrice=${fields.maxPrice}`);
+  };
+
+  const handleSearchFiltered = () => {
+    if (fields.minPrice) {
+      handleMinPrice();
+    }
+    if (fields.maxPrice) {
+      handleMaxPrice();
+    }
+
+    setShowFilters(false);
+  };
 
   return (
     <Container>
@@ -37,6 +66,10 @@ const ComplementFilters = () => {
             placeholder="Mínimo"
             placeholderTextColor="white"
             keyboardType="numeric"
+            value={fields.minPrice}
+            onChangeText={(val) => {
+              setFields({ ...fields, minPrice: val });
+            }}
             style={{
               textAlign: "center",
             }}
@@ -47,6 +80,10 @@ const ComplementFilters = () => {
             placeholder="Máximo"
             placeholderTextColor="white"
             keyboardType="numeric"
+            value={fields.maxPrice}
+            onChangeText={(val) => {
+              setFields({ ...fields, maxPrice: val });
+            }}
             style={{
               textAlign: "center",
             }}
@@ -71,7 +108,7 @@ const ComplementFilters = () => {
         <CleanButton onPress={() => {}}>
           <ButtonText>LIMPAR</ButtonText>
         </CleanButton>
-        <ApllyButton onPress={() => {}}>
+        <ApllyButton onPress={handleSearchFiltered}>
           <ButtonText>APLICAR</ButtonText>
         </ApllyButton>
       </ButtonsContainer>
