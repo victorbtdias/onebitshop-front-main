@@ -1,13 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { Alert } from "react-native";
 import { Product } from "../../../../entities/Product";
 import { PropsStack } from "../../../../routes";
 import getDate from "../../../../utils/getDate";
+import Like from "../../Like";
 import {
   Container,
   InfoLikeContainer,
-  LikeButton,
-  LikeImage,
   ProductImage,
   ProductInfoContainer,
   ProductPrice,
@@ -18,14 +16,12 @@ import {
   SellerName,
 } from "./styled";
 
-const likeImage = require("../../../../../assets/icons/like.png");
-const likedImage = require("../../../../../assets/icons/liked.png");
-
 export interface DataProps {
   data: Product;
+  favorite: boolean;
 }
 
-const ProductCard = ({ data }: DataProps) => {
+const ProductCard = ({ data, favorite }: DataProps) => {
   const navigation = useNavigation<PropsStack>();
 
   const handleNavProduct = (data: Product) => {
@@ -54,14 +50,7 @@ const ProductCard = ({ data }: DataProps) => {
             </PublishedText>
             <SellerName>{data.seller.name}</SellerName>
           </SellerInfoContainer>
-          <LikeButton
-            onPress={() => {
-              Alert.alert("Você deu Like");
-            }}
-            activeOpacity={0.85}
-          >
-            <LikeImage source={likeImage} />
-          </LikeButton>
+          <Like favorites={favorite} productId={data._id} />
         </InfoLikeContainer>
       </ProductInfoContainer>
     </Container>

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
   InfoContainer,
   InteractionsContainer,
-  Like,
   Price,
   Share,
   SubTitle,
@@ -23,8 +22,10 @@ import NavBar from "../../components/common/NavBar";
 import useAuth from "../../hook/useAuth";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import getDate from "../../utils/getDate";
+import favoriteService from "../../services/favoriteService";
+import { Product as ProductType } from "../../entities/Product";
+import Like from "../../components/common/Like";
 
-const like = require("../../../assets/icons/like.png");
 const share = require("../../../assets/icons/share.png");
 
 type Props = NativeStackScreenProps<PropsNavigationStack, "Product">;
@@ -33,6 +34,26 @@ const Product = ({ route }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
   const { params } = route;
+
+  const [liked, setLiked] = useState(false);
+
+  const handleGetFavorites = async () => {
+    if (!token) return;
+
+    const res = await favoriteService.getFavorites();
+
+    const isLiked = res.data.map((val: ProductType) => {
+      return val._id;
+    });
+
+    const liked = isLiked.some((liked: string) => route.params._id === liked);
+
+    setLiked(liked);
+  };
+
+  useEffect(() => {
+    handleGetFavorites();
+  }, []);
 
   return (
     <>
@@ -49,9 +70,7 @@ const Product = ({ route }: Props) => {
         <InfoContainer>
           <Price>R$ {params.price}</Price>
           <InteractionsContainer>
-            <Button activeOpacity={0.8}>
-              <Like source={like} />
-            </Button>
+            <Like favorites={liked} productId={route.params._id} />
             <Button activeOpacity={0.8}>
               <Share source={share} />
             </Button>
