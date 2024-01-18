@@ -77,7 +77,7 @@ const Product = ({ route }: Props) => {
           </InteractionsContainer>
         </InfoContainer>
         <DescriptionComponent desc={params.description} />
-        <SellerInfo name={params.seller.name} />
+        <SellerInfo product={route.params} />
         <DefaultButton
           buttonText="Fale com o vendedor"
           buttonType="primary"

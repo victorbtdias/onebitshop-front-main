@@ -1,24 +1,25 @@
 import { useNavigation } from "@react-navigation/native";
 import { AirbnbRating } from "react-native-ratings";
+import { Product } from "../../../entities/Product";
 import useAuth from "../../../hook/useAuth";
 import { PropsStack } from "../../../routes";
 import { DefaultText } from "../../common/ProfileInfo/styled";
 import { Button, Container, Name, SeeProfile, SellerContainer } from "./styled";
 
 interface Props {
-  name: string;
+  product: Product;
 }
 
-const SellerInfo = ({ name }: Props) => {
+const SellerInfo = ({ product }: Props) => {
   const navigation = useNavigation<PropsStack>();
   const { token } = useAuth();
 
-  const Rate = null;
+  const Rate = parseInt(product.seller.rating);
 
   return (
     <Container>
       <SellerContainer>
-        <Name>{name}</Name>
+        <Name>{product.seller.name}</Name>
         {!Rate ? (
           <DefaultText
             onPress={() => {
@@ -49,7 +50,9 @@ const SellerInfo = ({ name }: Props) => {
       </SellerContainer>
       <SeeProfile
         onPress={() => {
-          navigation.navigate("SellerProfile");
+          navigation.navigate("SellerProfile", {
+            sellerId: product.seller._id,
+          });
         }}
       >
         Ver Perfil

@@ -51,15 +51,19 @@ const UserAds = ({ products, seller }: ProductProps) => {
           <AdCard
             activeOpacity={0.85}
             onPress={() => {
-              navigation.navigate("UpdateProduct", {
-                _id: product._id,
-                name: product.name,
-                price: product.price,
-                images: product.images,
-                description: product.description,
-                category: product.category,
-                addressId: product.address._id,
-              });
+              !seller
+                ? navigation.navigate("UpdateProduct", {
+                    _id: product._id,
+                    name: product.name,
+                    price: product.price,
+                    images: product.images,
+                    description: product.description,
+                    category: product.category,
+                    addressId: product.address._id,
+                  })
+                : navigation.navigate("Product", {
+                    ...product,
+                  });
             }}
             key={product._id}
           >
