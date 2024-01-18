@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { User } from "../../../../entities/User";
 import {
   ArrowIconDisabled,
   DropDownContainerDisabled,
@@ -9,17 +10,21 @@ import {
 
 const arrowIcon = require("../../../../../assets/icons/arrow-down.png");
 
-const FieldsDisabled = () => {
+interface Props {
+  userInfo: User;
+}
+
+const FieldsDisabled = ({ userInfo }: Props) => {
   return (
     <>
       <InputDisabled>
-        <PlaceholderDisabled>Lucas Queiroga</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.name}</PlaceholderDisabled>
       </InputDisabled>
       <InputDisabled>
-        <PlaceholderDisabled>lucasqueiroga@email.com</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.email}</PlaceholderDisabled>
       </InputDisabled>
       <InputDisabled>
-        <PlaceholderDisabled>(81) 9 9999-9999</PlaceholderDisabled>
+        <PlaceholderDisabled>{userInfo.phone}</PlaceholderDisabled>
       </InputDisabled>
       <DropDownContainerDisabled pointerEvents="none">
         <DropDownDisabled

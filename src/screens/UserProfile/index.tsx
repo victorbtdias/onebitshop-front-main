@@ -17,6 +17,7 @@ import { PropsStack } from "../../routes";
 import useAuth from "../../hook/useAuth";
 import profileService from "../../services/profileService";
 import { User } from "../../entities/User";
+import Loader from "../Loader";
 
 const UserProfile = () => {
   const navigation = useNavigation<PropsStack>();
@@ -36,7 +37,7 @@ const UserProfile = () => {
     handleUserInfos();
   }, []);
 
-  if (!userInfo) return;
+  if (!userInfo) return <Loader />;
 
   return (
     <>
@@ -55,7 +56,7 @@ const UserProfile = () => {
         >
           Gerenciar Endereços
         </AddressText>
-        <UserAds products={userInfo} seller={true} />
+        {/* <UserAds products={userInfo} seller={true} /> */}
         <LogOutButton onPress={logout}>
           <LogOutText>Sair da sua conta</LogOutText>
         </LogOutButton>

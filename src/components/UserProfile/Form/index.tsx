@@ -7,10 +7,15 @@ import {
 } from "./styled";
 import FieldsDisabled from "./FieldsDisabled";
 import FieldsAbled from "./FieldsAbled";
+import { User } from "../../../entities/User";
 
 const edit = require("../../../../assets/icons/edit.png");
 
-const Form = () => {
+interface Props {
+  userInfo: User;
+}
+
+const Form = ({ userInfo }: Props) => {
   const [editable, setEditable] = useState(false);
 
   const handleToggleEditable = () => {
@@ -24,7 +29,11 @@ const Form = () => {
           <EditImage source={edit} />
         </EditButton>
       </EditButtonContainer>
-      {!editable ? <FieldsDisabled /> : <FieldsAbled />}
+      {!editable ? (
+        <FieldsDisabled userInfo={userInfo} />
+      ) : (
+        <FieldsAbled userInfo={userInfo} />
+      )}
     </Container>
   );
 };
