@@ -56,7 +56,7 @@ const UserProfile = () => {
         >
           Gerenciar Endereços
         </AddressText>
-        {/* <UserAds products={userInfo} seller={true} /> */}
+        <UserAds products={userInfo.products} seller={false} />
         <LogOutButton onPress={logout}>
           <LogOutText>Sair da sua conta</LogOutText>
         </LogOutButton>

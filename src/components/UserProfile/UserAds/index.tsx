@@ -18,6 +18,8 @@ import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PropsStack } from "../../../routes";
 import { Product } from "../../../entities/Product";
+import getDate from "../../../utils/getDate";
+import productService from "../../../services/productService";
 
 const trashIcon = require("../../../../assets/icons/trash.png");
 const heartIcon = require("../../../../assets/icons/like.png");
@@ -30,27 +32,40 @@ interface ProductProps {
 const UserAds = ({ products, seller }: ProductProps) => {
   const navigation = useNavigation<PropsStack>();
 
-  const handleEditProduct = () => {
-    if (!seller) {
-      navigation.navigate("AddProduct");
-    } else {
-      navigation.navigate("Product");
+  const handleDeleteProduct = async (_id: string) => {
+    const res = await productService.deleteProduct(_id);
+
+    if (res.status === 204) {
+      Alert.alert("Produto deletado com sucesso");
+      navigation.navigate("Home");
     }
   };
 
   return (
     <Container>
-      <TotalAds>Você tem 3 anúncios</TotalAds>
+      <TotalAds>
+        Você tem {products.length.toString().padStart(2, "0")} anúncios
+      </TotalAds>
       {products.length > 0 ? (
         products.map((product) => (
           <AdCard
             activeOpacity={0.85}
-            onPress={handleEditProduct}
+            onPress={() => {
+              navigation.navigate("UpdateProduct", {
+                _id: product._id,
+                name: product.name,
+                price: product.price,
+                images: product.images,
+                description: product.description,
+                category: product.category,
+                addressId: product.address._id,
+              });
+            }}
             key={product._id}
           >
             <Image
               source={{
-                uri: product.images[0].url,
+                uri: product?.images[0].url,
               }}
             />
             <InfoContainer>
@@ -60,12 +75,26 @@ const UserAds = ({ products, seller }: ProductProps) => {
               </PriceTitleContainer>
               <InfoIconContainer>
                 <PublishedText>
-                  Publicado em {product.publishedData}
+                  Publicado em {getDate(product.createdAt)}
                 </PublishedText>
                 {!seller ? (
                   <IconButton
                     onPress={() => {
-                      Alert.alert("Item para ser excluído");
+                      Alert.alert(
+                        "Você tem certeza?",
+                        "Ao fazer isso você deleterá o produto permanentemente.",
+                        [
+                          {
+                            text: "Sim",
+                            onPress: () => {
+                              handleDeleteProduct(product._id);
+                            },
+                          },
+                          {
+                            text: "Não",
+                          },
+                        ]
+                      );
                     }}
                     activeOpacity={0.85}
                   >
