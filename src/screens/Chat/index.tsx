@@ -19,10 +19,11 @@ const Chat = ({ route }: Props) => {
   return (
     <Container>
       <ChatHeader
-        sellerName={route.params.chatInfo.seller}
-        product={route.params.chatInfo.product}
+        sellerName={route.params.sellerName}
+        sellerId={route.params.sellerId}
+        product={route.params.product}
       />
-      <MessageList messages={route.params.chatInfo.messages} />
+      <MessageList messages={route.params.messages} />
       <InputContainer>
         <Input
           placeholder="Digite sua mensagem"

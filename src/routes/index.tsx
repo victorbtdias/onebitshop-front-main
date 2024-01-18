@@ -21,6 +21,7 @@ import Chat from "../screens/Chat";
 import { Image, Product } from "../entities/Product";
 import useAuth from "../hook/useAuth";
 import UpdateProduct from "../screens/UpdateProduct";
+import { Messages } from "../entities/Messages";
 
 export type PropsNavigationStack = {
   Home: undefined;
@@ -53,7 +54,12 @@ export type PropsNavigationStack = {
   Feedback: undefined;
   AllChats: undefined;
   Chat: {
-    chatInfo: any;
+    _id?: string;
+    product: Product;
+    sellerName: string;
+    sellerId: string;
+    buyerId: string;
+    messages: Messages[];
   };
 };
 
