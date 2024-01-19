@@ -1,3 +1,4 @@
+import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
@@ -28,9 +29,11 @@ const Home = () => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
-    handleGetProducts();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      handleGetProducts();
+    }, [])
+  );
 
   return (
     <Container>
